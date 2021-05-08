@@ -1,0 +1,32 @@
+{
+  "name": "package-sizer",
+  "version": "1.0.0",
+  "main": "bin/index.js",
+  "bin": {
+    "package-sizer": "bin/index.js"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^15.0.2",
+    "@typescript-eslint/parser": "^4.22.1",
+    "eslint": "^7.26.0",
+    "ts-node": "^9.1.1",
+    "ts-standard": "^10.0.0",
+    "typescript": "^4.2.4",
+    "uglify-js": "^3.13.5"
+  },
+  "scripts": {
+    "dev": "ts-node src/index.ts",
+    "clean-bin": "rm -rf bin/ && mkdir bin",
+    "clean-dist": "rm -rf dist/ && mkdir dist",
+    "clean": "yarn clean-bin && yarn clean-dist",
+    "lint": "ts-standard src/",
+    "compile": "tsc -p tsconfig.json",
+    "uglify": "ls dist/ | xargs -t -n 1 -I % sh -c 'uglifyjs dist/% -o bin/% --compress' && chmod +x bin/index.js",
+    "build": "yarn clean && yarn lint && yarn compile && yarn uglify && yarn clean-dist"
+  },
+  "dependencies": {
+    "chalk": "^4.1.1",
+    "commander": "^7.2.0"
+  }
+}
